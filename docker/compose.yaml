@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+
+  postgresdb-sales-order:
+    image: "postgres:17.4"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=sales_order00
+      - POSTGRES_DB=sales_order
+    ports:
+      - "54320:5432"
+    volumes:
+      - ./config/postgres/init_sales_order.sql:/docker-entrypoint-initdb.d/init_sales_order.sql
+
+  postgresdb-product:
+    image: "postgres:17.4"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=product00
+      - POSTGRES_DB=product
+    ports:
+      - "54330:5432"
+    volumes:
+      - ./config/postgres/init_product.sql:/docker-entrypoint-initdb.d/init_product.sql
