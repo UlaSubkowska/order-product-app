@@ -1,3 +1,14 @@
+## Formatter
+Application uses [spotless](https://github.com/diffplug/spotless/tree/main/plugin-maven) to format code.
+During each compilation spotless check that all classes are properly formatted. But it also possible to check it manually using command
+
+`./mvnw spotless:check`
+
+To fix formatting automatically you must execute
+
+`./mvnw spotless:apply`
+
+
 # Getting Started
 
 ### Reference Documentation

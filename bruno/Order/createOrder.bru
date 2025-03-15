@@ -1,0 +1,32 @@
+meta {
+  name: createOrder
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8080/orders
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "clientId": 3,
+    "totalAmount": 2369.97,
+    "purchaseOrderItems": [
+      {
+        "productId": 1,
+        "quantity": 2,
+        "priceItem": 624.99,
+        "totalPrice": 1249.98
+      },
+      {
+        "productId": 2,
+        "quantity": 1,
+        "priceItem": 1119.99,
+        "totalPrice": 1119.99
+      }
+    ]
+  }
+}
