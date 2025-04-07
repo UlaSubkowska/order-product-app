@@ -1,6 +1,7 @@
-package org.order.entity;
+package com.ulsub.order.entity;
 
 import jakarta.persistence.*;
+import java.math.BigDecimal;
 import javax.validation.constraints.NotEmpty;
 import lombok.*;
 
@@ -26,13 +27,13 @@ public class PurchaseOrderItem {
 
     @NotEmpty
     @Column(name = "quantity", nullable = false)
-    private double quantity;
+    private BigDecimal quantity;
 
     @NotEmpty
     @Column(name = "price_item", nullable = false)
-    private double priceItem;
+    private BigDecimal priceItem;
 
     @NotEmpty
     @Column(name = "total_price", nullable = false)
-    private double totalPrice;
+    private BigDecimal totalPrice;
 }

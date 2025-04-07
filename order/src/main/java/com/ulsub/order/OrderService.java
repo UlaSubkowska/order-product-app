@@ -1,15 +1,14 @@
-package org.order;
+package com.ulsub.order;
 
-import jakarta.transaction.Transactional;
+import com.ulsub.order.dto.PurchaseOrderDto;
+import com.ulsub.order.entity.PurchaseOrder;
 import java.util.List;
-import java.util.stream.Collectors;
-import lombok.AllArgsConstructor;
-import org.order.dto.PurchaseOrderDto;
-import org.order.entity.PurchaseOrder;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class OrderService {
 
     private final OrderMapper orderMapper;
@@ -21,10 +20,10 @@ public class OrderService {
         return purchaseOrder.getPurchaseOrderId();
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     List<PurchaseOrderDto> findAll() {
         List<PurchaseOrder> purchaseOrders = purchaseOrderRepository.findAll();
-        return purchaseOrders.stream().map(orderMapper::mapOrderEntityToDto).collect(Collectors.toList());
+        return purchaseOrders.stream().map(orderMapper::mapOrderEntityToDto).toList();
     }
 
     @Transactional

@@ -1,4 +1,4 @@
-package org.order;
+package com.ulsub.order;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

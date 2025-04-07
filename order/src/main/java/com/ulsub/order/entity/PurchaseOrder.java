@@ -1,8 +1,9 @@
-package org.order.entity;
+package com.ulsub.order.entity;
 
 import static jakarta.persistence.CascadeType.ALL;
 
 import jakarta.persistence.*;
+import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.List;
 import javax.validation.constraints.NotEmpty;
@@ -29,7 +30,7 @@ public class PurchaseOrder {
 
     @NotEmpty
     @Column(name = "total_amount", nullable = false)
-    private double totalAmount;
+    private BigDecimal totalAmount;
 
     @Column(name = "created_date", nullable = false, updatable = false)
     @CreationTimestamp

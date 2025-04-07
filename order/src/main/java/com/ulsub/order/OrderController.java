@@ -1,8 +1,8 @@
-package org.order;
+package com.ulsub.order;
 
+import com.ulsub.order.dto.PurchaseOrderDto;
 import java.util.List;
 import lombok.AllArgsConstructor;
-import org.order.dto.PurchaseOrderDto;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,8 +1,8 @@
-package org.order;
+package com.ulsub.order;
 
+import com.ulsub.order.dto.PurchaseOrderDto;
+import com.ulsub.order.entity.PurchaseOrder;
 import org.mapstruct.Mapper;
-import org.order.dto.PurchaseOrderDto;
-import org.order.entity.PurchaseOrder;
 
 @Mapper(componentModel = "spring")
 public abstract class OrderMapper {
