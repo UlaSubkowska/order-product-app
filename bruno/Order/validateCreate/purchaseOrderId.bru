@@ -1,5 +1,5 @@
 meta {
-  name: createOrder
+  name: purchaseOrderId
   type: http
   seq: 1
 }
@@ -12,6 +12,7 @@ post {
 
 body:json {
   {
+    "purchaseOrderId": 1, 
     "clientId": 3,
     "purchaseOrderItems": [
       {

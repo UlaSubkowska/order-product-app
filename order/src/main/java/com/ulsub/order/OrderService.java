@@ -27,7 +27,8 @@ public class OrderService {
     }
 
     @Transactional
-    public void deleteById(Long id) {
+    public Long deleteById(Long id) {
         purchaseOrderRepository.deleteById(id);
+        return id;
     }
 }

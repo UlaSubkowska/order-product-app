@@ -1,40 +1,41 @@
 package com.ulsub.order;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 import com.ulsub.order.dto.PurchaseOrderDto;
 import java.util.List;
+
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-
 @RestController
 @AllArgsConstructor
-@RequestMapping(value = "/v1", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/v1/orders", produces = APPLICATION_JSON_VALUE)
 public class OrderController {
 
     private final OrderService orderService;
 
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/orders")
-    public Long addOrder(@RequestBody PurchaseOrderDto purchaseOrderDto) {
-        return orderService.addOrder(purchaseOrderDto);
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Long> addOrder(@RequestBody @Valid PurchaseOrderDto purchaseOrderDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(orderService.addOrder(purchaseOrderDto));
     }
 
-    @GetMapping("/orders")
+    @GetMapping
     List<PurchaseOrderDto> findAllOrders() {
         return orderService.findAll();
     }
 
-    @DeleteMapping("/orders/{id}")
-    public ResponseEntity<?> deleteOrder(@PathVariable Long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Long> deleteOrder(@PathVariable Long id) {
         try {
-            orderService.deleteById(id);
-            return ResponseEntity.ok("Order with id: " + id + " deleted");
+            return ResponseEntity.ok(orderService.deleteById(id));
         } catch (EmptyResultDataAccessException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The order with id: " + id + " doesn't exist");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(id);
         }
     }
 }

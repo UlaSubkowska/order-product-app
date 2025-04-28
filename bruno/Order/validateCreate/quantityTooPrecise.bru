@@ -1,7 +1,7 @@
 meta {
-  name: createOrder
+  name: quantityTooPrecise
   type: http
-  seq: 1
+  seq: 6
 }
 
 post {
@@ -16,7 +16,7 @@ body:json {
     "purchaseOrderItems": [
       {
         "productId": 1,
-        "quantity": 2,
+        "quantity": 1.555,
         "priceItem": 624.99
       },
       {
