@@ -1,13 +1,13 @@
-package com.ulsub.order;
+package com.ulsub.order.controller;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 import com.ulsub.order.dto.PurchaseOrderDto;
+import com.ulsub.order.service.OrderService;
+import jakarta.validation.Valid;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
-
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,11 +23,12 @@ public class OrderController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Map<String, Long>> addOrder(@RequestBody @Valid PurchaseOrderDto purchaseOrderDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("purchaseOrderId", orderService.addOrder(purchaseOrderDto)));
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(Map.of("purchaseOrderId", orderService.addOrder(purchaseOrderDto)));
     }
 
     @GetMapping
-    List<PurchaseOrderDto> findAllOrders() {
+    public List<PurchaseOrderDto> findAllOrders() {
         return orderService.findAllOrders();
     }
 

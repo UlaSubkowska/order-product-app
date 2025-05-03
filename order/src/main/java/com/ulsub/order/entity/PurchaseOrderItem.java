@@ -2,7 +2,6 @@ package com.ulsub.order.entity;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
-
 import lombok.*;
 
 @Data
