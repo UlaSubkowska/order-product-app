@@ -3,11 +3,12 @@ package com.ulsub.order.service;
 import com.ulsub.order.dto.PurchaseOrderDto;
 import com.ulsub.order.dto.PurchaseOrderIdDto;
 import com.ulsub.order.entity.PurchaseOrder;
+import com.ulsub.order.exception.EntityNotFoundException;
 import com.ulsub.order.mapper.OrderMapper;
 import com.ulsub.order.repository.PurchaseOrderRepository;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,7 +36,7 @@ public class OrderService {
     public void deleteOrderById(Long id) {
         Optional<PurchaseOrder> purchaseOrder = purchaseOrderRepository.findById(id);
         if (purchaseOrder.isEmpty()) {
-            throw new NoSuchElementException("Purchase order not found");
+            throw new EntityNotFoundException(String.format("Purchase order with id %s not found", id));
         }
         purchaseOrderRepository.delete(purchaseOrder.get());
     }
