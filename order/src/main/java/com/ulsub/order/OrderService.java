@@ -3,6 +3,9 @@ package com.ulsub.order;
 import com.ulsub.order.dto.PurchaseOrderDto;
 import com.ulsub.order.entity.PurchaseOrder;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,14 +24,17 @@ public class OrderService {
     }
 
     @Transactional(readOnly = true)
-    List<PurchaseOrderDto> findAll() {
+    List<PurchaseOrderDto> findAllOrders() {
         List<PurchaseOrder> purchaseOrders = purchaseOrderRepository.findAll();
         return purchaseOrders.stream().map(orderMapper::mapOrderEntityToDto).toList();
     }
 
     @Transactional
-    public Long deleteById(Long id) {
-        purchaseOrderRepository.deleteById(id);
-        return id;
+    public void deleteOrderById(Long id) {
+        Optional<PurchaseOrder> purchaseOrder = purchaseOrderRepository.findById(id);
+        if (purchaseOrder.isEmpty()) {
+            throw new NoSuchElementException("Purchase order not found");
+        }
+        purchaseOrderRepository.delete(purchaseOrder.get());
     }
 }
