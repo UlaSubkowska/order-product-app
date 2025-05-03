@@ -24,8 +24,7 @@ public class OrderController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PurchaseOrderIdDto> addOrder(@RequestBody @Valid PurchaseOrderDto purchaseOrderDto) {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(orderService.addOrder(purchaseOrderDto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(orderService.addOrder(purchaseOrderDto));
     }
 
     @GetMapping

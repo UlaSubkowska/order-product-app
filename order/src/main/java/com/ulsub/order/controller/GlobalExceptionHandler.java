@@ -9,14 +9,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @ResponseBody
@@ -30,13 +26,16 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ErrorResponseDto(exception.getMessage());
     }
 
-    //TODO make better error response, for now only default message so ex. "errorMessage": "must not be null", without info what must not be null
+    // TODO make better error response, for now only default message so ex. "errorMessage": "must not be null", without
+    // info what must not be null
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
             MethodArgumentNotValidException e, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-        String messages = StringUtils.join(e.getBindingResult().getFieldErrors().stream()
-                .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                .toList(), ", ");
+        String messages = StringUtils.join(
+                e.getBindingResult().getFieldErrors().stream()
+                        .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                        .toList(),
+                ", ");
         log.error("Request parameters constraints violation: " + messages);
         return new ResponseEntity<>(new ErrorResponseDto(messages), HttpStatus.BAD_REQUEST);
     }
