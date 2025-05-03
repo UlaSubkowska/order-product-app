@@ -1,3 +1,11 @@
+## OpenApi
+
+http://localhost:8080/swagger-ui/index.html
+
+```./mvnw verify```
+
+```./mvnw springdoc-openapi:generate ```
+
 ## Formatter
 Application uses [spotless](https://github.com/diffplug/spotless/tree/main/plugin-maven) to format code.
 During each compilation spotless check that all classes are properly formatted. But it also possible to check it manually using command

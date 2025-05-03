@@ -1,6 +1,7 @@
 package com.ulsub.order.service;
 
 import com.ulsub.order.dto.PurchaseOrderDto;
+import com.ulsub.order.dto.PurchaseOrderIdDto;
 import com.ulsub.order.entity.PurchaseOrder;
 import com.ulsub.order.mapper.OrderMapper;
 import com.ulsub.order.repository.PurchaseOrderRepository;
@@ -19,9 +20,9 @@ public class OrderService {
     private final PurchaseOrderRepository purchaseOrderRepository;
 
     @Transactional
-    public Long addOrder(PurchaseOrderDto purchaseOrderDto) {
+    public PurchaseOrderIdDto addOrder(PurchaseOrderDto purchaseOrderDto) {
         PurchaseOrder purchaseOrder = purchaseOrderRepository.save(orderMapper.mapOrderDtoToEntity(purchaseOrderDto));
-        return purchaseOrder.getPurchaseOrderId();
+        return new PurchaseOrderIdDto(purchaseOrder.getPurchaseOrderId());
     }
 
     @Transactional(readOnly = true)
