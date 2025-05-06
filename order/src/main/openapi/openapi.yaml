@@ -1,0 +1,100 @@
+openapi: 3.1.0
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+paths:
+  /v1/orders:
+    get:
+      tags:
+      - order-controller
+      operationId: findAllOrders
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PurchaseOrderDto"
+    post:
+      tags:
+      - order-controller
+      operationId: addOrder
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PurchaseOrderDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: integer
+                  format: int64
+  /v1/orders/{id}:
+    delete:
+      tags:
+      - order-controller
+      operationId: deleteOrder
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: integer
+                  format: int64
+components:
+  schemas:
+    PurchaseOrderDto:
+      type: object
+      properties:
+        purchaseOrderId:
+          type: integer
+          format: int64
+        clientId:
+          type: integer
+          format: int64
+        totalAmount:
+          type: number
+        purchaseOrderItems:
+          type: array
+          items:
+            $ref: "#/components/schemas/PurchaseOrderItemDto"
+          minItems: 1
+      required:
+      - clientId
+      - purchaseOrderItems
+    PurchaseOrderItemDto:
+      type: object
+      properties:
+        productId:
+          type: integer
+          format: int64
+        quantity:
+          type: number
+        priceItem:
+          type: number
+        totalPrice:
+          type: number
+      required:
+      - productId
+      - quantity

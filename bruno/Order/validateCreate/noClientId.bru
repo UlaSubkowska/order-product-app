@@ -1,0 +1,28 @@
+meta {
+  name: noClientId
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8080/v1/orders
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "purchaseOrderItems": [
+      {
+        "productId": 1,
+        "quantity": 2,
+        "priceItem": 624.99
+      },
+      {
+        "productId": 2,
+        "quantity": 1,
+        "priceItem": 1119.99
+      }
+    ]
+  }
+}

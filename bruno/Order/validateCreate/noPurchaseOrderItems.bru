@@ -1,0 +1,17 @@
+meta {
+  name: noPurchaseOrderItems
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8080/v1/orders
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "clientId": 3
+  }
+}
