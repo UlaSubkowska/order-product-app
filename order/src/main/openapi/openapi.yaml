@@ -9,9 +9,15 @@ paths:
   /v1/orders:
     get:
       tags:
-      - order-controller
+      - Orders
       operationId: findAllOrders
       responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ErrorResponseDto"
         "200":
           description: OK
           content:
@@ -22,7 +28,7 @@ paths:
                   $ref: "#/components/schemas/PurchaseOrderDto"
     post:
       tags:
-      - order-controller
+      - Orders
       operationId: addOrder
       requestBody:
         content:
@@ -31,19 +37,22 @@ paths:
               $ref: "#/components/schemas/PurchaseOrderDto"
         required: true
       responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ErrorResponseDto"
         "200":
           description: OK
           content:
             application/json:
               schema:
-                type: object
-                additionalProperties:
-                  type: integer
-                  format: int64
+                $ref: "#/components/schemas/PurchaseOrderIdDto"
   /v1/orders/{id}:
     delete:
       tags:
-      - order-controller
+      - Orders
       operationId: deleteOrder
       parameters:
       - name: id
@@ -53,17 +62,24 @@ paths:
           type: integer
           format: int64
       responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ErrorResponseDto"
         "200":
           description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties:
-                  type: integer
-                  format: int64
 components:
   schemas:
+    ErrorResponseDto:
+      type: object
+      properties:
+        errorMessage:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
     PurchaseOrderDto:
       type: object
       properties:
@@ -98,3 +114,9 @@ components:
       required:
       - productId
       - quantity
+    PurchaseOrderIdDto:
+      type: object
+      properties:
+        purchaseOrderId:
+          type: integer
+          format: int64

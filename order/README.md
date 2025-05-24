@@ -1,10 +1,35 @@
+# Order app
+
+Microservice for creating orders in climbing shop. 
+
+## Stack
+- Java 21
+- Spring Boot
+- PostgreSQL
+
+## Local run
+
+### Start Postgres container
+
+Refer to ../README.md - root level readme file.
+
+### Start order app
+
+`./mvnw spring-boot:run`
+
 ## OpenApi
 
-http://localhost:8080/swagger-ui/index.html
+Application uses [openApi](https://swagger.io/specification/) to describe HTTP API. `springdoc-openapi-maven-plugin` works during integration-tests phase, 
+and generate the OpenAPI description. The plugin works in conjunction with spring-boot-maven plugin. Contract file can be found in 
+src/main/openapi/openapi.yaml. 
 
-```./mvnw verify```
+To run manually: 
 
-```./mvnw springdoc-openapi:generate ```
+`./mvnw verify`
+
+Or make sure application is up and running and then execute `./mvnw springdoc-openapi:generate`.
+
+Swagger UI : http://localhost:8080/swagger-ui/index.html
 
 ## Formatter
 Application uses [spotless](https://github.com/diffplug/spotless/tree/main/plugin-maven) to format code.
@@ -15,21 +40,3 @@ During each compilation spotless check that all classes are properly formatted. 
 To fix formatting automatically you must execute
 
 `./mvnw spotless:apply`
-
-
-# Getting Started
-
-### Reference Documentation
-For further reference, please consider the following sections:
-
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/3.4.3/maven-plugin)
-* [Create an OCI image](https://docs.spring.io/spring-boot/3.4.3/maven-plugin/build-image.html)
-
-### Maven Parent overrides
-
-Due to Maven's design, elements are inherited from the parent POM to the project POM.
-While most of the inheritance is fine, it also inherits unwanted elements like `<license>` and `<developers>` from the parent.
-To prevent this, the project POM contains empty overrides for these elements.
-If you manually switch to a different parent and actually want the inheritance, you need to remove those overrides.
-
