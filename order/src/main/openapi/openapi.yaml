@@ -6,29 +6,10 @@ servers:
 - url: http://localhost:8080
   description: Generated server url
 paths:
-  /v1/orders:
-    get:
-      tags:
-      - Orders
-      operationId: findAllOrders
-      responses:
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/ErrorResponseDto"
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/PurchaseOrderDto"
+  /v1/order:
     post:
       tags:
-      - Orders
+      - Order
       operationId: addOrder
       requestBody:
         content:
@@ -49,10 +30,30 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PurchaseOrderIdDto"
-  /v1/orders/{id}:
+  /v1/orders:
+    get:
+      tags:
+      - Order
+      operationId: findAllOrders
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ErrorResponseDto"
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PurchaseOrderDto"
+  /v1/order/{id}:
     delete:
       tags:
-      - Orders
+      - Order
       operationId: deleteOrder
       parameters:
       - name: id
