@@ -1,0 +1,34 @@
+---
+name: "Create an order - success"
+
+request:
+  method: "POST"
+  url: "/v1/order"
+  headers:
+    Content-Type: "application/json"
+  matchers:
+    headers:
+      - key: "Content-Type"
+        regex: "application/json.*"
+        regexType: "as_string"
+  body:
+    clientId: "3"
+    purchaseOrderItems:
+      - productId: "1"
+        quantity: "2"
+        priceItem: "624.99"
+      - productId: "2"
+        quantity: "1"
+        priceItem: "1119.99"
+
+response:
+  status: 201
+  headers:
+    Content-Type: "application/json"
+  body:
+    "purchaseOrderId": 1
+  matchers:
+    headers:
+      - key: "Content-Type"
+        regex: "application/json.*"
+        regexType: "as_string"
