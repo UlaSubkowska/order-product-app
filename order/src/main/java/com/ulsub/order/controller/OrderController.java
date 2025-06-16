@@ -21,7 +21,6 @@ public class OrderController {
 
     private final OrderService orderService;
 
-    //    TODO reconsider returned type
     @PostMapping(path = "/order", consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<PurchaseOrderIdDto> addOrder(@RequestBody @Valid PurchaseOrderDto purchaseOrderDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(orderService.addOrder(purchaseOrderDto));
@@ -32,7 +31,6 @@ public class OrderController {
         return ResponseEntity.ok(orderService.findAllOrders());
     }
 
-    //    TODO reconsider returned type
     @DeleteMapping("/order/{id}")
     public ResponseEntity<Void> deleteOrder(@PathVariable Long id) {
         orderService.deleteOrderById(id);

@@ -3,28 +3,27 @@ package com.ulsub.order.mapper;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import com.ulsub.order.Prototype;
+import com.ulsub.order.PrototypeImpl;
 import com.ulsub.order.dto.PurchaseOrderDto;
-import com.ulsub.order.dto.PurchaseOrderItemDto;
 import com.ulsub.order.entity.PurchaseOrder;
 import com.ulsub.order.entity.PurchaseOrderItem;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.List;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mapstruct.factory.Mappers;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
+@SpringBootTest
 public class OrderMapperTest {
+
+    @Autowired
     private OrderMapper orderMapper;
 
-    @BeforeEach
-    void setUp() {
-        orderMapper = Mappers.getMapper(OrderMapper.class);
-    }
+    private final Prototype prototype = new PrototypeImpl();
 
     @Test
     void testMapOrderDtoToEntity() {
-        PurchaseOrderDto purchaseOrderDto = createPurchaseOrderDto();
+        PurchaseOrderDto purchaseOrderDto = prototype.createPurchaseOrderDto();
 
         PurchaseOrder purchaseOrder = orderMapper.mapOrderDtoToEntity(purchaseOrderDto);
 
@@ -32,30 +31,11 @@ public class OrderMapperTest {
         purchaseOrder.getPurchaseOrderItems().forEach(item -> {
             assertEquals(purchaseOrder, item.getPurchaseOrder());
             BigDecimal expectedTotalPrice = item.getPriceItem().multiply(item.getQuantity());
-            assertEquals(0, expectedTotalPrice.compareTo(item.getTotalPrice()));
+            assertEquals(expectedTotalPrice, item.getTotalPrice());
         });
         BigDecimal expectedTotalAmount = purchaseOrder.getPurchaseOrderItems().stream()
                 .map(PurchaseOrderItem::getTotalPrice)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
-        assertEquals(0, expectedTotalAmount.compareTo(purchaseOrder.getTotalAmount()));
-    }
-
-    private List<PurchaseOrderItemDto> createPurchaseOrderItems() {
-        return List.of(
-                new PurchaseOrderItemDto(
-                        1L,
-                        BigDecimal.valueOf(2).setScale(1, RoundingMode.HALF_UP),
-                        BigDecimal.valueOf(624.99).setScale(2, RoundingMode.HALF_UP),
-                        BigDecimal.valueOf(1249.98).setScale(2, RoundingMode.HALF_UP)),
-                new PurchaseOrderItemDto(
-                        2L,
-                        BigDecimal.valueOf(1).setScale(1, RoundingMode.HALF_UP),
-                        BigDecimal.valueOf(1119.99).setScale(2, RoundingMode.HALF_UP),
-                        BigDecimal.valueOf(1119.99).setScale(2, RoundingMode.HALF_UP)));
-    }
-
-    private PurchaseOrderDto createPurchaseOrderDto() {
-        return new PurchaseOrderDto(
-                1L, 1L, BigDecimal.valueOf(2369.97).setScale(2, RoundingMode.HALF_UP), createPurchaseOrderItems());
+        assertEquals(expectedTotalAmount, purchaseOrder.getTotalAmount());
     }
 }

@@ -30,12 +30,10 @@ public class OrderControllerBase {
 
     @BeforeEach
     public void setupTest() {
-        // given
         given(orderService.addOrder(any(PurchaseOrderDto.class))).willReturn(createPurchaseOrderId());
-        given(orderService.findAllOrders()).willReturn(List.of(createPurchaseOrder_one(), createPurchaseOrder_two()));
+//        given(orderService.findAllOrders()).willReturn(List.of(createPurchaseOrder_one(), createPurchaseOrder_two()));
         doNothing().when(orderService).deleteOrderById(any(Long.class));
 
-        // then
         RestAssuredMockMvc.standaloneSetup(orderController, new GlobalExceptionHandler());
     }
 
@@ -43,17 +41,17 @@ public class OrderControllerBase {
         return new PurchaseOrderIdDto(PURCHASE_ORDER_ID);
     }
 
-    private PurchaseOrderDto createPurchaseOrder_one() {
-        return new PurchaseOrderDto(
-                2L,
-                3L,
-                BigDecimal.valueOf(704.99).setScale(2, RoundingMode.HALF_UP),
-                List.of(new PurchaseOrderItemDto(
-                        3L,
-                        BigDecimal.valueOf(1).setScale(1, RoundingMode.HALF_UP),
-                        BigDecimal.valueOf(704.99).setScale(2, RoundingMode.HALF_UP),
-                        BigDecimal.valueOf(704.99).setScale(2, RoundingMode.HALF_UP))));
-    }
+//    private PurchaseOrderDto createPurchaseOrder_one() {
+//        return new PurchaseOrderDto(
+//                2L,
+//                3L,
+//                BigDecimal.valueOf(704.99).setScale(2, RoundingMode.HALF_UP),
+//                List.of(new PurchaseOrderItemDto(
+//                        3L,
+//                        BigDecimal.valueOf(1).setScale(1, RoundingMode.HALF_UP),
+//                        BigDecimal.valueOf(704.99).setScale(2, RoundingMode.HALF_UP),
+//                        BigDecimal.valueOf(704.99).setScale(2, RoundingMode.HALF_UP))));
+//    }
 
     private List<PurchaseOrderItemDto> createPurchaseOrderItems() {
         return List.of(
@@ -69,11 +67,11 @@ public class OrderControllerBase {
                         BigDecimal.valueOf(1119.99).setScale(2, RoundingMode.HALF_UP)));
     }
 
-    private PurchaseOrderDto createPurchaseOrder_two() {
-        return new PurchaseOrderDto(
-                PURCHASE_ORDER_ID,
-                1L,
-                BigDecimal.valueOf(2369.97).setScale(2, RoundingMode.HALF_UP),
-                createPurchaseOrderItems());
-    }
+//    private PurchaseOrderDto createPurchaseOrder_two() {
+//        return new PurchaseOrderDto(
+//                PURCHASE_ORDER_ID,
+//                1L,
+//                BigDecimal.valueOf(2369.97).setScale(2, RoundingMode.HALF_UP),
+//                createPurchaseOrderItems());
+//    }
 }
