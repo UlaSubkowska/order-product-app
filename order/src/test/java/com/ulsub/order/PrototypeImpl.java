@@ -1,31 +1,28 @@
 package com.ulsub.order;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ulsub.order.dto.PurchaseOrderDto;
-import com.ulsub.order.dto.PurchaseOrderItemDto;
-
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.List;
+import jakarta.inject.Inject;
 
 public class PrototypeImpl implements Prototype {
 
-    @Override
-    public PurchaseOrderDto createPurchaseOrderDto() {
-        return new PurchaseOrderDto(
-                1L, 1L, BigDecimal.valueOf(2369.97).setScale(2, RoundingMode.HALF_UP), createPurchaseOrderItems());
+    @Inject
+    ObjectMapper objectMapper;
+
+    private PurchaseOrderDto purchaseOrderDto;
+
+    public PrototypeImpl(PurchaseOrderDto purchaseOrderDto) {
+        this.purchaseOrderDto = purchaseOrderDto;
     }
 
-    private List<PurchaseOrderItemDto> createPurchaseOrderItems() {
-        return List.of(
-                new PurchaseOrderItemDto(
-                        1L,
-                        BigDecimal.valueOf(2).setScale(1, RoundingMode.HALF_UP),
-                        BigDecimal.valueOf(624.99).setScale(2, RoundingMode.HALF_UP),
-                        BigDecimal.valueOf(1249.98).setScale(2, RoundingMode.HALF_UP)),
-                new PurchaseOrderItemDto(
-                        2L,
-                        BigDecimal.valueOf(1).setScale(1, RoundingMode.HALF_UP),
-                        BigDecimal.valueOf(1119.99).setScale(2, RoundingMode.HALF_UP),
-                        BigDecimal.valueOf(1119.99).setScale(2, RoundingMode.HALF_UP)));
+    @Override
+    public PurchaseOrderDto clone() {
+        try {
+            String json = objectMapper.writeValueAsString(purchaseOrderDto);
+            return objectMapper.readValue(json, PurchaseOrderDto.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
