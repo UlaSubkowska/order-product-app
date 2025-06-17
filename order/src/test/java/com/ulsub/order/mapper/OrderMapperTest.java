@@ -3,11 +3,10 @@ package com.ulsub.order.mapper;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import com.ulsub.order.Prototype;
-import com.ulsub.order.PrototypeImpl;
 import com.ulsub.order.dto.PurchaseOrderDto;
 import com.ulsub.order.entity.PurchaseOrder;
 import com.ulsub.order.entity.PurchaseOrderItem;
+import com.ulsub.order.utils.Prototype;
 import java.math.BigDecimal;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,7 @@ public class OrderMapperTest {
     @Autowired
     private OrderMapper orderMapper;
 
-    private final Prototype prototype = new PrototypeImpl();
+    private final Prototype prototype = new Prototype();
 
     @Test
     void testMapOrderDtoToEntity() {

@@ -4,15 +4,13 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.*;
 
-import com.ulsub.order.Prototype;
-import com.ulsub.order.PrototypeImpl;
 import com.ulsub.order.dto.PurchaseOrderDto;
 import com.ulsub.order.dto.PurchaseOrderIdDto;
 import com.ulsub.order.entity.PurchaseOrder;
 import com.ulsub.order.exception.EntityNotFoundException;
 import com.ulsub.order.mapper.OrderMapper;
 import com.ulsub.order.repository.PurchaseOrderRepository;
-
+import com.ulsub.order.utils.Prototype;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
@@ -32,7 +30,7 @@ public class OrderServiceTest {
     @InjectMocks
     private OrderService orderService;
 
-    private final Prototype prototype = new PrototypeImpl();;
+    private final Prototype prototype = new Prototype();
 
     private PurchaseOrder createMockPurchaseOrderEntity(Long id) {
         PurchaseOrder po = mock(PurchaseOrder.class);

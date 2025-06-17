@@ -26,7 +26,7 @@ response:
   headers:
     Content-Type: "application/json"
   body:
-    "purchaseOrderId": 1
+    purchaseOrderId: 1
   matchers:
     headers:
       - key: "Content-Type"
