@@ -23,7 +23,7 @@
 		<spotless.version>2.42.0</spotless.version>
 		<springdoc-openapi.version>2.8.6</springdoc-openapi.version>
 		<springdoc-openapi-plugin.version>1.4</springdoc-openapi-plugin.version>
-		<spring-cloud-contract.version>4.2.1</spring-cloud-contract.version>
+		<spring-cloud-contract.version>4.3.0</spring-cloud-contract.version>
 	</properties>
 
 	<dependencies>
@@ -81,6 +81,21 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-contract-verifier</artifactId>
 			<version>${spring-cloud-contract.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-testcontainers</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>postgresql</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -190,6 +205,11 @@
 					<convertToYaml>true</convertToYaml>
 					<failOnNoContracts>false</failOnNoContracts>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.2.5</version>
 			</plugin>
 		</plugins>
 	</build>

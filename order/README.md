@@ -40,6 +40,15 @@ To run tests locally:
 To see tests generated in target/generated-test-sources package is enough:  
 `./mvnw package`
 
+## Integration tests
+
+On MacOS   
+Make sure colima is up and running.   
+`colima status`   
+Verify you can execute `docker ps`      
+Create symbolic link for test containers to be able to use Colima  
+`sudo ln -s $HOME/.colima/default/docker.sock /var/run/docker.sock`
+
 ## Formatter
 Application uses [spotless](https://github.com/diffplug/spotless/tree/main/plugin-maven) to format code.
 During each compilation spotless check that all classes are properly formatted. But it also possible to check it manually using command
@@ -50,7 +59,7 @@ To fix formatting automatically you must execute
 
 `./mvnw spotless:apply`
 
-### Local config: execute spotless automatically before commit
+## Local config: execute spotless automatically before commit
 
 - navigate to .git/hooks dir
 - add pre-commit file with such content: 

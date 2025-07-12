@@ -31,7 +31,8 @@ public class OrderControllerBase {
     public void setupTest() {
         given(orderService.addOrder(any(PurchaseOrderDto.class))).willReturn(createPurchaseOrderId());
         given(orderService.findAllOrders())
-                .willReturn(List.of(prototype.createPurchaseOrderDto(), prototype.createPurchaseOrderDto_second()));
+                .willReturn(List.of(
+                        prototype.createPurchaseOrderDto_withId(), prototype.createPurchaseOrderDto_withId_second()));
         doNothing().when(orderService).deleteOrderById(any(Long.class));
 
         RestAssuredMockMvc.standaloneSetup(orderController, new GlobalExceptionHandler());

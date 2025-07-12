@@ -15,6 +15,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 public class OrderMapperTest {
 
+    // TODO why this class tries to start container, or why it needs url ?
+    // Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be
+    // configured.
+
     @Autowired
     private OrderMapper orderMapper;
 

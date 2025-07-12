@@ -10,12 +10,12 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-@Data
 @Builder
+// @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 @Entity
-@EqualsAndHashCode
 @Table(schema = "sales_order", name = "purchase_order")
 public class PurchaseOrder {
 
