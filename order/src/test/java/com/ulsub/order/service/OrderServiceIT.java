@@ -51,7 +51,7 @@ public class OrderServiceIT {
         Long id = orderIdDto.purchaseOrderId();
         assertThat(orderIdDto).isNotNull();
 
-        //        // Find all orders; check it contains the one you added
+        // Find all orders; check it contains the one you added
         List<PurchaseOrderDto> allOrders = orderService.findAllOrders();
         assertEquals(allOrders.getFirst().purchaseOrderId(), id);
 

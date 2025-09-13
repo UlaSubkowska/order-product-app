@@ -11,7 +11,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Builder
-// @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @Data

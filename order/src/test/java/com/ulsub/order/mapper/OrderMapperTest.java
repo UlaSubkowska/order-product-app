@@ -9,20 +9,27 @@ import com.ulsub.order.entity.PurchaseOrderItem;
 import com.ulsub.order.utils.Prototype;
 import java.math.BigDecimal;
 import org.junit.jupiter.api.Test;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-@SpringBootTest
+@SpringBootTest(classes = OrderMapperTest.TestConfig.class)
 public class OrderMapperTest {
-
-    // TODO why this class tries to start container, or why it needs url ?
-    // Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be
-    // configured.
 
     @Autowired
     private OrderMapper orderMapper;
 
     private final Prototype prototype = new Prototype();
+
+    @Configuration
+    static class TestConfig {
+        @Bean
+        public OrderMapper orderMapper() {
+            return Mappers.getMapper(OrderMapper.class);
+        }
+    }
 
     @Test
     void testMapOrderDtoToEntity() {
