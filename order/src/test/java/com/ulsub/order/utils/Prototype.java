@@ -10,6 +10,11 @@ public class Prototype {
 
     public PurchaseOrderDto createPurchaseOrderDto() {
         return new PurchaseOrderDto(
+                null, 1L, BigDecimal.valueOf(2369.97).setScale(2, RoundingMode.HALF_UP), createPurchaseOrderItems());
+    }
+
+    public PurchaseOrderDto createPurchaseOrderDto_withId() {
+        return new PurchaseOrderDto(
                 1L, 1L, BigDecimal.valueOf(2369.97).setScale(2, RoundingMode.HALF_UP), createPurchaseOrderItems());
     }
 
@@ -27,7 +32,7 @@ public class Prototype {
                         BigDecimal.valueOf(1119.99).setScale(2, RoundingMode.HALF_UP)));
     }
 
-    public PurchaseOrderDto createPurchaseOrderDto_second() {
+    public PurchaseOrderDto createPurchaseOrderDto_withId_second() {
         return new PurchaseOrderDto(
                 2L,
                 3L,
