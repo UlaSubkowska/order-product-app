@@ -1,0 +1,46 @@
+package com.ulsub.product;
+
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import lombok.RequiredArgsConstructor;
+import jakarta.ws.rs.*;
+
+import java.util.List;
+
+@Path("/v1")
+@RequiredArgsConstructor
+public class ProductResource {
+
+    private final ProductService productService;
+
+    //TODO adds validation
+    @POST
+    @Path("/product")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addProduct(ProductDto productDto) {
+        Long productId = productService.addProduct(productDto);
+        return Response.status(Response.Status.CREATED)
+                .entity(productId)
+                .build();
+    }
+
+    @GET
+    @Path("/products")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<ProductDto> findAllProducts() {
+        return productService.findAllProducts();
+    }
+
+    @DELETE
+    @Path("/product/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteProduct(@PathParam("id") Long id) {
+        productService.deleteProduct(id);
+        return Response.status(Response.Status.NO_CONTENT)
+                .build();
+    }
+
+}
