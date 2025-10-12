@@ -59,6 +59,12 @@ To fix formatting automatically you must execute
 
 `./mvnw spotless:apply`
 
+## Clean pom.xml
+
+To keep mvn configuration clean the project uses maven-enforcer-plugin with the rules: 
+- [banDuplicatePomDependencyVersions](https://www.baeldung.com/maven-enforcer-plugin)
+- [dependencyConvergence](https://maven.apache.org/enforcer/enforcer-rules/dependencyConvergence.html)
+
 ## Local config: execute spotless automatically before commit
 
 - navigate to .git/hooks dir
