@@ -2,9 +2,9 @@ package com.ulsub.order.controller;
 
 import com.ulsub.order.dto.ErrorResponseDto;
 import com.ulsub.order.exception.EntityNotFoundException;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -26,17 +26,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ErrorResponseDto(exception.getMessage());
     }
 
-    // TODO make better error response, for now only default message so ex. "errorMessage": "must not be null", without
-    // info what must not be null
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
             MethodArgumentNotValidException e, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-        String messages = StringUtils.join(
-                e.getBindingResult().getFieldErrors().stream()
-                        .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                        .toList(),
-                ", ");
-        log.error("Request parameters constraints violation: " + messages);
-        return new ResponseEntity<>(new ErrorResponseDto(messages), HttpStatus.BAD_REQUEST);
+        List<String> messages = e.getBindingResult().getFieldErrors().stream()
+                .map(fieldError -> fieldError.getField() + " " + fieldError.getDefaultMessage())
+                .toList();
+        String fullMessage = StringUtils.join(messages, ", ");
+        log.error("Request parameters constraints violation: " + fullMessage);
+        return new ResponseEntity<>(new ErrorResponseDto(fullMessage), HttpStatus.BAD_REQUEST);
     }
 }

@@ -1,0 +1,27 @@
+meta {
+  name: fewRulesBroken
+  type: http
+  seq: 7
+}
+
+post {
+  url: http://localhost:8080/v1/order
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "clientId": 3,
+    "purchaseOrderItems": [
+      {
+        "priceItem": 624.996788
+      },
+      {
+        "productId": 2,
+        "quantity": 1,
+        "priceItem": 1119.99
+      }
+    ]
+  }
+}
