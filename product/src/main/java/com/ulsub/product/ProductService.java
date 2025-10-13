@@ -1,26 +1,29 @@
 package com.ulsub.product;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import lombok.RequiredArgsConstructor;
-
-import java.util.ArrayList;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 
 @ApplicationScoped
 @RequiredArgsConstructor
 public class ProductService {
 
+    private final ProductRepository productRepository;
+    private final ProductMapper productMapper;
+
     Long addProduct(ProductDto productDto) {
-        //TODO implement
-        return 1L;
+        ProductEntity product = productMapper.toProduct(productDto);
+        productRepository.persist(product);
+
+        return productMapper.toProductDto(product).id();
     }
 
     List<ProductDto> findAllProducts() {
-        //TODO implement
-        return new ArrayList<>();
+        List<ProductEntity> products = productRepository.findAll().stream().toList();
+        return products.stream().map(productMapper::toProductDto).toList();
     }
 
     void deleteProduct(Long id) {
-        //TODO implement
+        productRepository.deleteById(id);
     }
 }
