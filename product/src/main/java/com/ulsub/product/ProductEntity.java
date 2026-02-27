@@ -3,11 +3,13 @@ package com.ulsub.product;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
+import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+@Data
 @Entity
-@Table(name = "product", schema = "quarkus")
+@Table(name = "product", schema = "product")
 public class ProductEntity {
 
     @Id
@@ -24,14 +26,14 @@ public class ProductEntity {
     @Column(name = "quantity_total", nullable = false)
     private BigDecimal quantityTotal;
 
-    @Column(name = "quantity_reserved", nullable = false)
+    @Column(name = "quantity_reserved")
     private BigDecimal quantityReserved;
 
     @CreationTimestamp
-    @Column(name = "created_on", updatable = false)
+    @Column(name = "created_date", updatable = false)
     private ZonedDateTime createdOn;
 
     @UpdateTimestamp
-    @Column(name = "updated_on", insertable = false)
+    @Column(name = "updated_date", insertable = false)
     private ZonedDateTime updatedOn;
 }

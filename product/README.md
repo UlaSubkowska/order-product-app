@@ -1,8 +1,24 @@
-# product
+# Product app
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+Microservice for managing products in climbing shop.
 
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
+## Stack
+- Java 21
+- Quarkus
+- PostgreSQL
+
+## Local run
+
+### Start Postgres container
+
+Refer to ../README.md - root level readme file.
+
+### Start product app
+
+`./mvnw quarkus:dev`
+
+
+
 
 ## Running the application in dev mode
 

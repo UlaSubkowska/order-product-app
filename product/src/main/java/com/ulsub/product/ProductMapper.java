@@ -1,13 +1,12 @@
 package com.ulsub.product;
 
-import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 
-@Mapper(componentModel = "cdi")
+@Mapper(componentModel = "cdi", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface ProductMapper {
 
-    ProductEntity toProduct(ProductDto productDto);
+    ProductEntity toProductEntity(ProductDto productDto);
 
-    @InheritInverseConfiguration(name = "toProduct")
-    ProductDto toProductDto(ProductEntity productEntity);
+    ProductDto mapToProductDto(ProductEntity productEntity);
 }
