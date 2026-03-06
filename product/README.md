@@ -6,6 +6,7 @@ Microservice for managing products in climbing shop.
 - Java 21
 - Quarkus
 - PostgreSQL
+- GraalVM
 
 ## Local run
 
@@ -17,18 +18,7 @@ Refer to ../README.md - root level readme file.
 
 `./mvnw quarkus:dev`
 
-
-
-
-## Running the application in dev mode
-
-You can run your application in dev mode that enables live coding using:
-
-```shell script
-./mvnw quarkus:dev
-```
-
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
+Quarkus Dev UI: <http://localhost:8080/q/dev/>
 
 ## Packaging and running the application
 
@@ -58,17 +48,16 @@ You can create a native executable using:
 ```shell script
 ./mvnw package -Dnative
 ```
-
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
-
-```shell script
-./mvnw package -Dnative -Dquarkus.native.container-build=true
-```
-
-You can then execute your native executable with: `./target/product-1.0-SNAPSHOT-runner`
+Requirement: GraalVM
 
 If you want to learn more about building native executables, please consult <https://quarkus.io/guides/maven-tooling>.
 
-## Related Guides
+## Formatter
+Application uses [spotless](https://github.com/diffplug/spotless/tree/main/plugin-maven) to format code.
+During each compilation spotless check that all classes are properly formatted. But it also possible to check it manually using command
 
-- JDBC Driver - PostgreSQL ([guide](https://quarkus.io/guides/datasource)): Connect to the PostgreSQL database via JDBC
+`./mvnw spotless:check`
+
+To fix formatting automatically you must execute
+
+`./mvnw spotless:apply`

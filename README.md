@@ -34,3 +34,20 @@ Refer to product/README.md file.
 For manual testing purpose repository contain [bruno](https://www.usebruno.com/) directory with collection of http calls. 
 
 ![img.png](doc/img.png)
+
+## Local config: execute spotless automatically before commit
+NOTE: does not work for this repo, probably because of the need of separate spotless for each service (Spring and Quarkus) 
+
+- navigate to .git/hooks dir
+- add pre-commit file with such content:
+```
+  #!/bin/sh
+  mvn spotless:check
+  if [ $? -ne 0 ]; then
+  echo "Spotless checks failed. Execute apply and add everything"
+  mvn spotless:apply
+  git add .
+  exit 1
+  fi
+```
+- make pre-commit file executable: `chmod +x pre-commit`
