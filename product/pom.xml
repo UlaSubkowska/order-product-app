@@ -82,6 +82,10 @@
             <version>${mapstruct.version}</version>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-smallrye-openapi</artifactId>
+        </dependency>
 
 <!--     TEST    -->
         <dependency>
