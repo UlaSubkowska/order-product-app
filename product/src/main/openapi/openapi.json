@@ -54,6 +54,31 @@
       }
     },
     "/v1/product/{id}" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProductDto"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Find Product",
+        "tags" : [ "Product Resource" ]
+      },
       "delete" : {
         "parameters" : [ {
           "name" : "id",

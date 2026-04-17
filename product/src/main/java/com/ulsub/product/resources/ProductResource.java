@@ -1,5 +1,7 @@
-package com.ulsub.product;
+package com.ulsub.product.resources;
 
+import com.ulsub.product.ProductService;
+import com.ulsub.product.dto.ProductDto;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -28,6 +30,14 @@ public class ProductResource {
     @Produces(MediaType.APPLICATION_JSON)
     public List<ProductDto> findAllProducts() {
         return productService.findAllProducts();
+    }
+
+    @GET
+    @Path("/product/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public ProductDto findProduct(@PathParam("id") Long id) {
+        return productService.findProduct(id);
     }
 
     @DELETE
