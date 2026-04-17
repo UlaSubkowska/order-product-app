@@ -1,5 +1,6 @@
 package com.ulsub.product;
 
+import com.ulsub.product.dto.ProductDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
